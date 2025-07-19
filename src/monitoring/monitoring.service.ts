@@ -21,7 +21,7 @@ export class MonitoringService {
     private readonly notificationService: NotificationService,
   ) {}
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async checkForDataChanges(): Promise<void> {
     try {
       const currentData = await this.dataService.getUrls();
