@@ -36,6 +36,11 @@ export class NotificationService {
                 아티클 읽기
               </a>
             </p>
+            <p style="margin: 20px 0 0 0; text-align: center;">
+              <a href="https://ai-for-developer.vercel.app/" style="background-color: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                더 많은 글은 이곳에서 확인하세요!
+              </a>
+            </p>
           </div>
           <hr style="border: 1px solid #eee; margin: 30px 0;">
           <p style="color: #666; font-size: 14px;">

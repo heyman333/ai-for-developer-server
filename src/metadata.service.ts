@@ -56,7 +56,10 @@ export class MetadataService {
         ogTitle: $('meta[property="og:title"]').attr('content') || undefined,
         ogDescription:
           $('meta[property="og:description"]').attr('content') || undefined,
-        ogImage: $('meta[property="og:image"]').attr('content') || undefined,
+        ogImage:
+          $('meta[property="og:image"]').attr('content') ||
+          this.findFirstImage($) ||
+          undefined,
         ogUrl: $('meta[property="og:url"]').attr('content') || undefined,
 
         // Twitter Card tags
@@ -91,5 +94,28 @@ export class MetadataService {
   async getAllMetadata(urls: string[]): Promise<UrlMetadata[]> {
     const promises = urls.map((url) => this.getMetadata(url));
     return Promise.all(promises);
+  }
+
+  private findFirstImage($: cheerio.CheerioAPI): string | undefined {
+    const imageSelectors = [
+      'img[src$=".jpg"]',
+      'img[src$=".jpeg"]',
+      'img[src$=".png"]',
+      'img[src*=".jpg"]',
+      'img[src*=".jpeg"]',
+      'img[src*=".png"]',
+    ];
+
+    for (const selector of imageSelectors) {
+      const firstImage = $(selector).first();
+      if (firstImage.length > 0) {
+        const src = firstImage.attr('src');
+        if (src) {
+          return src.startsWith('http') ? src : undefined;
+        }
+      }
+    }
+
+    return undefined;
   }
 }
